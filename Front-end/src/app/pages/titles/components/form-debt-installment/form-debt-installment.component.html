@@ -1,0 +1,22 @@
+<form [formGroup]="debtInstallment">
+    <mat-form-field class="mt-full-width">
+        <mat-label>Data de vencimento</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="dueDate" readonly>
+        <mat-datepicker-toggle matSuffix [for]="picker">
+            <fa-icon matDatepickerToggleIcon [icon]="['fas', 'calendar-alt']">
+            </fa-icon>
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker disabled="false"></mat-datepicker>
+        <mat-error *ngIf="isFieldInvalid('dueDate')">
+            <span *ngIf="getControl('dueDate').errors?.required">Campo obrigatório</span>
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field class="mt-full-width">
+        <mat-label>Valor</mat-label>
+        <input type="number" matInput formControlName="installmentAmount" />
+        <mat-error *ngIf="isFieldInvalid('installmentAmount');">
+            <span *ngIf="getControl('installmentAmount').errors?.required">Campo obrigatório</span>
+            <!-- <span *ngIf="getControl('email').errors.pattern">Campo inválido</span> -->
+        </mat-error>
+    </mat-form-field>
+</form>

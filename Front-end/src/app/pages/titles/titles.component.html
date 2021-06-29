@@ -1,0 +1,43 @@
+<div fxLayout="row" fxFlexFill>
+    <div fxLayout="column" fxFlex="100%">
+        <app-breadcrumb></app-breadcrumb>
+        <mat-card class="margin-top">
+            <h1>Títulos</h1>
+            <button mat-raised-button color="primary" class="btn-nowrap" (click)="openDialog('add')">
+                <fa-icon [icon]="['fas', 'plus']"></fa-icon>&nbsp;
+                Adicionar
+            </button>
+            <mat-card-content class="margin-top">
+                <table mat-table [dataSource]="dataSource" #table class="my-table mat-elevation-z8">
+                    <ng-container matColumnDef="debtSecurityId">
+                        <th mat-header-cell *matHeaderCellDef>Número do título</th>
+                        <td mat-cell *matCellDef="let element">{{element.debtSecurityId}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="debtorName">
+                        <th mat-header-cell *matHeaderCellDef>Nome do devedor</th>
+                        <td mat-cell *matCellDef="let element">{{element.debtorName}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="numberInstallments">
+                        <th mat-header-cell *matHeaderCellDef>Qtde de parcelas</th>
+                        <td mat-cell *matCellDef="let element">{{element.numberInstallments}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="originalValue">
+                        <th mat-header-cell *matHeaderCellDef>Valor original</th>
+                        <td mat-cell *matCellDef="let element">{{element.originalValue}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="daysOverdue">
+                        <th mat-header-cell *matHeaderCellDef>Dias em atraso</th>
+                        <td mat-cell *matCellDef="let element">{{element.daysOverdue}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="updatedAmount">
+                        <th mat-header-cell *matHeaderCellDef>Valor atualizado</th>
+                        <td mat-cell *matCellDef="let element">{{element.updatedAmount}}</td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

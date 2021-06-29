@@ -1,0 +1,8 @@
+.mt-toolbar {
+    border-bottom: 1px solid #dee2e6;
+    background-color: #fff;
+}
+
+.fill-remaining-space {
+    flex: 1 1 auto;
+}

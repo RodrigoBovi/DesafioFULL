@@ -1,0 +1,11 @@
+<nav id="sidebar" role="navigation">
+    <mat-toolbar class="mt-toolbar">
+        <button mat-icon-button>
+            <fa-icon [icon]="['fas', 'bars']"></fa-icon>
+        </button>
+        <span class="fill-remaining-space"></span>
+        <button mat-flat-button class="btn-nowrap" (click)="onLogout()">
+            <fa-icon [icon]="['fas', 'power-off']"></fa-icon>&nbsp;Sair
+        </button>
+    </mat-toolbar>
+</nav>

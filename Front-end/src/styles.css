@@ -1,0 +1,64 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.title {
+    margin-bottom: .5rem;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+.mt-text-center {
+    display: block !important;
+    text-align: center;
+}
+
+.mt-full-width {
+    width: 100%;
+}
+
+.mt-card-content-padding {
+    padding: 16px 0;
+}
+
+.mt-actions-end {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.margin-top {
+    margin-top: 24px !important;
+}
+
+.btn-actions {
+    color: #fff;
+    background-color: #0069d9;
+}
+
+.btn-confirm {
+    color: #fff;
+    background-color:  #28a745;
+}
+
+.btn-nowrap > span {
+    display: flex;
+}
+
+.mt-stepper-full-width > .mat-step > .mat-step-header {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.mt-stepper-full-width > .mat-step > .mat-step-header + .mat-vertical-content-container {
+    margin-left: 12px;
+}
+
+.mt-stepper-full-width > .mat-step > .mat-step-header + .mat-vertical-content-container > .mat-vertical-stepper-content .mat-vertical-content {
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+table {
+    width: 100%;
+}

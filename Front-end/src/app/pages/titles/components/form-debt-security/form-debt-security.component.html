@@ -1,0 +1,71 @@
+<mat-vertical-stepper class="mt-stepper-full-width" [linear]="true" #stepper>
+    <mat-step [stepControl]="debtSecurity">
+        <form [formGroup]="debtSecurity">
+            <ng-template matStepLabel>Título</ng-template>
+            <mat-form-field class="mt-full-width">
+                <mat-label>Nome do devedor</mat-label>
+                <input type="text" matInput formControlName="debtorName" />
+                <mat-error *ngIf="isFieldInvalid('debtorName');">
+                    <span *ngIf="getControl('debtorName').errors?.required">Campo obrigatório</span>
+                    <!-- <span *ngIf="getControl('email').errors?.pattern">Campo inválido</span> -->
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="mt-full-width">
+                <mat-label>CPF</mat-label>
+                <input type="text" matInput formControlName="debtorCPF" />
+                <mat-error *ngIf="isFieldInvalid('debtorName');">
+                    <span *ngIf="getControl('debtorName').errors?.required">Campo obrigatório</span>
+                    <!-- <span *ngIf="getControl('email').errors.pattern">Campo inválido</span> -->
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="mt-full-width">
+                <mat-label>% de juros</mat-label>
+                <input type="number" matInput formControlName="interestPercent" />
+                <mat-error *ngIf="isFieldInvalid('interestPercent');">
+                    <span *ngIf="getControl('interestPercent').errors?.required">Campo obrigatório</span>
+                    <!-- <span *ngIf="getControl('email').errors.pattern">Campo inválido</span> -->
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="mt-full-width">
+                <mat-label>% de multa</mat-label>
+                <input type="number" matInput formControlName="penaltyPercent" />
+                <mat-error *ngIf="isFieldInvalid('penaltyPercent');">
+                    <span *ngIf="getControl('penaltyPercent').errors?.required">Campo obrigatório</span>
+                    <!-- <span *ngIf="getControl('email').errors.pattern">Campo inválido</span> -->
+                </mat-error>
+            </mat-form-field>
+            <div class="mt-actions-end margin-top">
+                <button mat-raised-button matStepperNext color="primary">Próximo</button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Parcelas</ng-template>
+        <button mat-raised-button color="primary" class="btn-nowrap margin-top" (click)="openDialog('add')">
+            <fa-icon [icon]="['fas', 'plus']"></fa-icon>&nbsp;
+            Adicionar
+        </button>
+        <table mat-table [dataSource]="dataSource" #table class="my-table mat-elevation-z8 margin-top">
+            <ng-container matColumnDef="debtInstallmentId">
+                <th mat-header-cell *matHeaderCellDef>Parcela</th>
+                <td mat-cell *matCellDef="let element">{{element.debtInstallmentId}}</td>
+            </ng-container>
+            <ng-container matColumnDef="dueDate">
+                <th mat-header-cell *matHeaderCellDef>Data vencimento</th>
+                <td mat-cell *matCellDef="let element">{{element.dueDate | date: 'dd/MM/yyyy'}}</td>
+            </ng-container>
+            <ng-container matColumnDef="installmentAmount">
+                <th mat-header-cell *matHeaderCellDef>Valor</th>
+                <td mat-cell *matCellDef="let element">{{element.installmentAmount}}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <div class="mt-actions-end margin-top">
+            <button mat-raised-button matStepperPrevious color="primary">Anterior</button>
+            &nbsp;&nbsp;
+            <button mat-raised-button color="primary" (click)="stepper.reset()">Limpar</button>
+        </div>
+    </mat-step>
+</mat-vertical-stepper>

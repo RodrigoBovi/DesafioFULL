@@ -1,0 +1,8 @@
+<xng-breadcrumb>
+    <ng-container *xngBreadcrumbItem="let breadcrumb; let info = info;">
+        <fa-icon [icon]="['fas', info]">
+        </fa-icon>
+        &nbsp;
+        <ng-container>{{ breadcrumb }}</ng-container> 
+    </ng-container>
+</xng-breadcrumb>
