@@ -19,10 +19,12 @@ namespace DesafioFull.Infra.IoC.DI
             services.AddScoped(typeof(IRepositoryBase<,>), typeof(RepositoryBase<,>));
             services.AddScoped(typeof(IRepositoryBase<User, int>), typeof(UserRepository));
             services.AddScoped(typeof(IRepositoryBase<DebtSecurity, int>), typeof(DebtSecurityRepository));
+            services.AddScoped(typeof(IRepositoryBase<DebtInstallment, int>), typeof(DebtInstallmentRepository));
 
             ///Services
             services.AddScoped(typeof(UserService));
             services.AddScoped(typeof(DebtSecurityService));
+            services.AddScoped(typeof(DebtInstallmentService));
         }
     }
 }

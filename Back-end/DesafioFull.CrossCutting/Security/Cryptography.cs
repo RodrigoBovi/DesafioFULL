@@ -22,12 +22,7 @@ namespace DesafioFull.CrossCutting.Security
                 iterationCount: 10000,
                 numBytesRequested: 256 / 8);
 
-            byte[] result = new byte[hash.Length + salt.Length];
-
-            Array.Copy(salt, 0, result, 0, salt.Length);
-            Array.Copy(hash, 0, result, salt.Length, hash.Length);
-
-            return Convert.ToBase64String(result);
+            return GetHashNewArray(hash, salt);
         }
 
         public static string HashWithDatabaseValue(string value, string hashDatabase)
@@ -43,6 +38,11 @@ namespace DesafioFull.CrossCutting.Security
                 iterationCount: 10000,
                 numBytesRequested: 256 / 8);
 
+            return GetHashNewArray(hash, salt);
+        }
+
+        private static string GetHashNewArray(byte[] hash, byte[] salt)
+        {
             byte[] result = new byte[hash.Length + salt.Length];
 
             Array.Copy(salt, 0, result, 0, salt.Length);
