@@ -15,16 +15,6 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       {
-        path: 'home',
-        loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule),
-        data: {
-          breadcrumb: {
-            label: 'Home',
-            info: 'home'
-          }
-        }
-      },
-      {
         path: 'titles',
         loadChildren: () => import('./modules/titles/titles.module').then(m => m.TitlesModule),
         data: {

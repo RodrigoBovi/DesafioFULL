@@ -7,6 +7,7 @@ import { FormDebtInstallmentComponent } from '../../pages/titles/components/form
 import { FormDebtSecurityComponent } from '../../pages/titles/components/form-debt-security/form-debt-security.component';
 import { TitlesComponent } from '../../pages/titles/titles.component';
 import { SharedModule } from '../../shared/shared.module';
+import { MaskModule } from '../mask/mask.module';
 import { MaterialModule } from '../material/material.module';
 import { TitlesRoutingModule } from './titles-routing.module';
 
@@ -23,7 +24,8 @@ import { TitlesRoutingModule } from './titles-routing.module';
     FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    MaskModule
   ]
 })
 export class TitlesModule { }

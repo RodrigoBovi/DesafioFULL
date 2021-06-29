@@ -12,6 +12,7 @@ import { AuthenticationService } from '../../_helpers/authentication.service';
 })
 export class LoginComponent implements OnInit {
 
+  isLoading = false;
   loginForm: FormGroup;
 
   constructor(
@@ -44,12 +45,14 @@ export class LoginComponent implements OnInit {
   }
 
   private authenticate() {
+    this.setLoading(true);
     this.authService.login(new User(this.loginForm.value)).subscribe(
       data => {
-        this.router.navigate(['/home']);
+        this.setLoading(false);
+        this.router.navigate(['/titles']);
       },
       error => {
-
+        this.setLoading(false);
       }
     );
   }
@@ -69,5 +72,9 @@ export class LoginComponent implements OnInit {
     }
 
     return isValid;
+  }
+
+  private setLoading(loading: boolean) {
+    this.isLoading = loading;
   }
 }

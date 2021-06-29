@@ -16,9 +16,17 @@ export class DebtSecurityService {
     private http: HttpClient
   ) { }
 
-  createDebtSecurity(debtSecurity: DebtSecurity): Observable<DebtSecurityDataSource> {
+  getUserDebtSecurities(userId: number): Observable<DebtSecurityDataSource[]> {
+    return this.http.get(`${environment.baseUrlApi}DebtSecurity/GetUserDebtSecurities?userId=${userId}`).pipe(
+      map((data:DebtSecurityDataSource[]) => {
+        return data;
+      }
+    ));
+  }
+
+  createDebtSecurity(debtSecurity: DebtSecurity): Observable<DebtSecurityDataSource[]> {
     return this.http.post(`${environment.baseUrlApi}DebtSecurity/CreateDebtSecurity`, debtSecurity).pipe(
-      map((data:DebtSecurityDataSource) => {
+      map((data:DebtSecurityDataSource[]) => {
         return data;
       }
     ));

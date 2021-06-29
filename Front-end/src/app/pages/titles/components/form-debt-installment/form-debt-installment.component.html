@@ -13,7 +13,7 @@
     </mat-form-field>
     <mat-form-field class="mt-full-width">
         <mat-label>Valor</mat-label>
-        <input type="number" matInput formControlName="installmentAmount" />
+        <input type="text" matInput formControlName="installmentAmount" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"/>
         <mat-error *ngIf="isFieldInvalid('installmentAmount');">
             <span *ngIf="getControl('installmentAmount').errors?.required">Campo obrigatório</span>
             <!-- <span *ngIf="getControl('email').errors.pattern">Campo inválido</span> -->

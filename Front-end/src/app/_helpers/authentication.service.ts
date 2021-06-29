@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { throwError } from 'rxjs';
 
-import { map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { User } from '../data/user/types/user';
 
@@ -25,6 +26,9 @@ export class AuthenticationService {
       map(user => {
         this.setSession(user);
         return user;
+      }),
+      catchError((res: Response) => {
+        return throwError(res);
       })
     );
   }

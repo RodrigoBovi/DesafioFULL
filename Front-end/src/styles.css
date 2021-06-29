@@ -9,6 +9,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     line-height: 1.2;
 }
 
+.mt-menu-item {
+    padding-left: 15px;
+}
+
+.fill-remaining-space {
+    flex: 1 1 auto;
+}
+
 .mt-text-center {
     display: block !important;
     text-align: center;
@@ -61,4 +69,17 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 table {
     width: 100%;
+}
+
+/* Custom loading */
+.custom-loading {
+    text-align: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 20px;
+    margin: auto;
+    z-index: 2000;
 }

@@ -1,7 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatStepper, MatVerticalStepper } from '@angular/material/stepper';
 import { MatTable } from '@angular/material/table';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { DebtInstallmentDataSource } from '../../../../data/debtInstallment/types/debt-installment-data-source';
 import { DialogResult } from '../../../../data/dialog/types/dialog-result';
@@ -13,8 +16,9 @@ import { FormDebtInstallmentComponent } from '../form-debt-installment/form-debt
   templateUrl: './form-debt-security.component.html',
   styleUrls: ['./form-debt-security.component.css']
 })
-export class FormDebtSecurityComponent implements OnInit {
+export class FormDebtSecurityComponent implements OnInit, OnDestroy {
 
+  @ViewChild(MatStepper, { static: true }) stepper: MatVerticalStepper;
   @ViewChild(MatTable, { static: true }) table: MatTable<DebtInstallmentDataSource>;
 
   dialogRef: MatDialogRef<DialogComponent, any>;
@@ -22,17 +26,20 @@ export class FormDebtSecurityComponent implements OnInit {
   debtSecurity: FormGroup;
   displayedColumns: string[] = ['debtInstallmentId', 'dueDate', 'installmentAmount'];
 
+  private unsubscribe$ = new Subject<void>();
+  
   constructor(
     private dialog: MatDialog,
-    private formBuilder: FormBuilder,
+    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit(): void {
     this.createForm();
   }
 
-  closeDialog() {
-    this.dialogRef.close();
+  clearSteps() {
+    this.dataSource = [];
+    this.stepper.reset()
   }
 
   getControl(field: string): AbstractControl {
@@ -80,17 +87,21 @@ export class FormDebtSecurityComponent implements OnInit {
     this.closeDialog();
   }
 
+  private closeDialog() {
+    this.dialogRef.close();
+  }
+
   private createForm() {
     this.debtSecurity = this.formBuilder.group({
-      debtorName: ['', Validators.required],
+      debtorName: ['', [Validators.required, Validators.pattern(/^[A-Za-z ]+$/)]],
       debtorCPF: ['', Validators.required],
-      interestPercent: ['', Validators.required],
-      penaltyPercent: ['', Validators.required]
+      interestPercent: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
+      penaltyPercent: ['', [Validators.required,  Validators.min(0), Validators.max(100)]]
     });
   }
 
   private observeDialogResult(dialogRef: MatDialogRef<DialogComponent>) {
-    dialogRef.componentInstance.getDialogResult().subscribe(
+    dialogRef.componentInstance.getDialogResult().pipe(takeUntil(this.unsubscribe$)).subscribe(
       (result: DialogResult) => {
         this.addRowData(result);
       }
@@ -103,5 +114,11 @@ export class FormDebtSecurityComponent implements OnInit {
       dueDate: componentInstance.debtInstallment.get('dueDate').value,
       installmentAmount: componentInstance.debtInstallment.get('installmentAmount').value
     });
+  }
+
+  ngOnDestroy() {
+    this.dialogRef = null;
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

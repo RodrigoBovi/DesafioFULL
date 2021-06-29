@@ -1,0 +1,8 @@
+<ngx-loading [show]="isLoading || isSubmited" [config]="config" [template]="customLoadingTemplate"></ngx-loading>
+<ng-template #customLoadingTemplate>
+  <div class="custom-loading">
+    <img src="../../../../assets/login_loader.gif" style="height:30px" />
+    <h6 *ngIf="isLoading" class="mt-1">Aguarde! Carregando conteúdo.</h6>
+    <h6 *ngIf="isSubmited" class="mt-1">Aguarde! Salvando dados.</h6>
+  </div>
+</ng-template>
