@@ -46,10 +46,12 @@ namespace DesafioFull.Infra.Data.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public virtual async Task<int> InsertReturnIntAsync(TEntity entity)
+        public virtual async Task<int> InsertReturnIntAsync(TEntity entity, string primaryKeyName)
         {
             await _context.Set<TEntity>().AddAsync(entity);
-            return await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
+
+            return (int)entity.GetType().GetProperty(primaryKeyName).GetValue(entity, null);
         }
     }
 }

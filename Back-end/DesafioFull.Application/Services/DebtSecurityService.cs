@@ -35,7 +35,7 @@ namespace DesafioFull.Application.Services
                 foreach (DebtSecurity itemDebtSecurity in debtSecurities)
                 {
                     List<DebtInstallment> debtInstallments = await _debtInstallmentService.GetDebtInstallmentsByDebtSecutiryId(itemDebtSecurity.DebtSecurityId);
-                    List<DebtInstallment> debtInstallmentsExpired = debtInstallments.Where(w => w.DueDate < DateTime.Now).ToList();
+                    List<DebtInstallment> debtInstallmentsExpired = debtInstallments.Where(w => w.DueDate.Date < DateTime.Now.Date).ToList();
 
                     DebtSecurityResponseViewModel debtSecurityResponse = new DebtSecurityResponseViewModel
                     {
@@ -90,7 +90,7 @@ namespace DesafioFull.Application.Services
                     UserId = debtSecurityViewModel.UserId
                 };
 
-                int debtSecurityId = await InsertDebtSecurity(debtSecurity);
+                int debtSecurityId = await InsertDebtSecurity(debtSecurity, "DebtSecurityId");
 
                 if (debtSecurityId > 0)
                 {
@@ -118,11 +118,11 @@ namespace DesafioFull.Application.Services
             }
         }
 
-        private async Task<int> InsertDebtSecurity(DebtSecurity debtSecurity)
+        private async Task<int> InsertDebtSecurity(DebtSecurity debtSecurity, string primaryKeyName)
         {
             try
             {
-                return await _debtSecurityRepository.InsertReturnIntAsync(debtSecurity);
+                return await _debtSecurityRepository.InsertReturnIntAsync(debtSecurity, primaryKeyName);
             }
             catch (Exception ex)
             {

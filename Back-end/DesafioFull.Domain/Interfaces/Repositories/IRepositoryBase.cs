@@ -11,6 +11,6 @@ namespace DesafioFull.Domain.Interfaces.Repositories
         Task<IEnumerable<TEntity>> GetAllAsync();
         Task<IEnumerable<TEntity>> GetAllByConditionAsync(Expression<Func<TEntity, bool>> predicate);
         Task InsertAsync(TEntity entity);
-        Task<int> InsertReturnIntAsync(TEntity entity);
+        Task<int> InsertReturnIntAsync(TEntity entity, string primaryKeyName);
     }
 }
