@@ -1,25 +1,27 @@
-﻿namespace DesafioFull.CrossCutting.Validations
+﻿using System;
+
+namespace DesafioFull.CrossCutting.Validations
 {
     public static class CalculateDebts
     {
-        public static decimal Calculate(decimal originalValue, decimal penaltyPercent, decimal interestPercentMonth, int daysOverdue, decimal installmentAmount)
+        public static decimal CalculateInterestPercent(decimal interestPercentMonth, int daysOverdue, decimal installmentAmount)
         {
-            decimal penaltyValue = CalculatePenaltyPercent(originalValue, penaltyPercent); 
             decimal interestValue = CalculateInterestPercentMonth(interestPercentMonth, daysOverdue, installmentAmount);
 
-            return originalValue + penaltyValue + interestValue;
+            return interestValue;
         }
 
-        private static decimal CalculatePenaltyPercent(decimal originalValue, decimal penaltyPercent)
+        public static decimal CalculatePenaltyPercent(decimal originalValue, decimal penaltyPercent)
         {
-            return originalValue * penaltyPercent;            
+            return (originalValue * (penaltyPercent / 100));
         }
 
         private static decimal CalculateInterestPercentMonth(decimal interestPercent, int daysOverdue, decimal installmentAmount)
         {
-            int monthDays = 30;
+            DateTime dateTimeNow = DateTime.Now;
+            int monthDays = DateTime.DaysInMonth(dateTimeNow.Year, dateTimeNow.Month);
 
-            return (interestPercent / monthDays) * daysOverdue * installmentAmount;
+            return ((interestPercent / 100) / monthDays) * daysOverdue * installmentAmount;
         }
     }
 }

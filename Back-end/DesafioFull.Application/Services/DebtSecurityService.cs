@@ -45,23 +45,21 @@ namespace DesafioFull.Application.Services
                         OriginalValue = debtInstallments.Sum(w => w.InstallmentAmount)
                     };
 
-                    decimal debts = 0;
-                    int daysOverdue = 0;
+                    decimal interestPercent = 0;
+                    decimal penaltyValue = CalculateDebts.CalculatePenaltyPercent(debtSecurityResponse.OriginalValue, itemDebtSecurity.PenaltyPercent);
 
                     foreach (DebtInstallment itemDebtInstallment in debtInstallmentsExpired)
                     {
-                        daysOverdue += (DateTime.Now - itemDebtInstallment.DueDate).Days;
+                        int daysOverdue = (DateTime.Now - itemDebtInstallment.DueDate).Days;
 
-                        debts += CalculateDebts.Calculate(
-                            debtSecurityResponse.OriginalValue,
-                            itemDebtSecurity.PenaltyPercent,
+                        interestPercent += CalculateDebts.CalculateInterestPercent(
                             itemDebtSecurity.InterestPercent,
                             daysOverdue,
                             itemDebtInstallment.InstallmentAmount
                             );
                     }
 
-                    debtSecurityResponse.UpdatedAmount = debts;
+                    debtSecurityResponse.UpdatedAmount = debtSecurityResponse.OriginalValue +  penaltyValue + interestPercent;
 
                     debtSecuritiesResponse.Add(debtSecurityResponse);
                 }
